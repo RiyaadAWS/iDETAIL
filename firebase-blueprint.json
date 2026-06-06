@@ -1,0 +1,192 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Represents a physical user profile and loyalty dashboard details.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Unique identifier of the user (auth.uid)."
+        },
+        "email": {
+          "type": "string",
+          "description": "The user's email address."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User's display name or username."
+        },
+        "loyaltyPoints": {
+          "type": "integer",
+          "description": "Points earned by purchasing products and services."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp for when the profile was generated."
+        }
+      },
+      "required": ["uid", "email", "loyaltyPoints", "createdAt"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "An order purchase submission containing products and totals.",
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "string",
+          "description": "Unique ID of the order."
+        },
+        "userId": {
+          "type": "string",
+          "description": "ID of the user who made the order."
+        },
+        "items": {
+          "type": "array",
+          "description": "List of ordered products and their quantities."
+        },
+        "totalPrice": {
+          "type": "number",
+          "description": "Total checkout price in Rands."
+        },
+        "status": {
+          "type": "string",
+          "description": "Current state of fulfillment.",
+          "enum": ["pending", "processing", "completed", "cancelled", "return_requested", "returned"]
+        },
+        "returnReason": {
+          "type": "string",
+          "description": "Customer provided return reason category."
+        },
+        "returnDetails": {
+          "type": "string",
+          "description": "Detailed explanation of why the product is being returned."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The order timestamp."
+        }
+      },
+      "required": ["orderId", "userId", "items", "totalPrice", "status", "createdAt"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Represents an administrator user with permissions to view and update orders.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The UID of the administrator."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email of the administrator."
+        },
+        "assignedAt": {
+          "type": "string",
+          "description": "ISO timestamp for when the admin was created/assigned."
+        }
+      },
+      "required": ["uid", "email", "assignedAt"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "A dynamic chemical formula detailing product stored in inventory.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Unique numeric reference key for the product listing."
+        },
+        "name": {
+          "type": "string",
+          "description": "Product display name."
+        },
+        "price": {
+          "type": "number",
+          "description": "The item cost in South African Rands (ZAR)."
+        },
+        "category": {
+          "type": "string",
+          "description": "Primary chemical category type.",
+          "enum": ["exterior", "interior", "ceramic", "accessories"]
+        },
+        "categoryLabel": {
+          "type": "string",
+          "description": "Readable name of the category shown in client UI."
+        },
+        "icon": {
+          "type": "string",
+          "description": "Simple representative illustrative emoji/icon."
+        },
+        "image": {
+          "type": "string",
+          "description": "S3 or folder storage asset URL path."
+        },
+        "description": {
+          "type": "string",
+          "description": "A short summary outlining performance."
+        },
+        "fullDescription": {
+          "type": "string",
+          "description": "Sufficient chemical formulation and application steps guide."
+        },
+        "rating": {
+          "type": "number",
+          "description": "Aggregated reviews density score (1.0 to 5.0)."
+        },
+        "reviewsCount": {
+          "type": "integer",
+          "description": "Fitted quantity of client feedback loops."
+        },
+        "benefits": {
+          "type": "array",
+          "description": "Target characteristics list."
+        },
+        "instructions": {
+          "type": "string",
+          "description": "Sequential steps to utilize the chemistry."
+        },
+        "size": {
+          "type": "string",
+          "description": "Packaged formulation dimensions or fluid oz volume."
+        },
+        "inStock": {
+          "type": "boolean",
+          "description": "Client status switch for active purchase cart additions."
+        },
+        "isFeatured": {
+          "type": "boolean",
+          "description": "Whether to pin the card in the main page showcase."
+        },
+        "stockCount": {
+          "type": "integer",
+          "description": "Exact units currently held on site."
+        }
+      },
+      "required": ["id", "name", "price", "category", "categoryLabel", "icon", "description", "fullDescription", "rating", "reviewsCount", "benefits", "instructions", "size", "inStock", "isFeatured", "stockCount"]
+    }
+  },
+  "firestore": {
+    "admins/{adminId}": {
+      "schema": "Admin",
+      "description": "List of authorized administrator users."
+    },
+    "users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Stores user profiles containing custom client preferences and loyalty points."
+    },
+    "users/{userId}/purchases/{purchaseId}": {
+      "schema": "Order",
+      "description": "Contains purchases placed by registered users under their account."
+    },
+    "orders/{orderId}": {
+      "schema": "Order",
+      "description": "Global collection containing all customer orders for tracking and fulfillment."
+    },
+    "products/{productId}": {
+      "schema": "Product",
+      "description": "Product inventory database detailing chemicals, pricing, and stock on hand."
+    }
+  }
+}

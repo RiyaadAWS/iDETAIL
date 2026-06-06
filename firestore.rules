@@ -1,0 +1,251 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ============================================
+    // GLOBAL Safety Catch-All
+    // ============================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ============================================
+    // GLOBAL HELPERS
+    // ============================================
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
+        ('email' in request.auth.token && (
+          request.auth.token.email == 'riyaadryklief92@gmail.com' || 
+          request.auth.token.email == 'RiyaadRyklief92@gmail.com'
+        ))
+      );
+    }
+
+    // ============================================
+    // RULE DEFINITIONS FOR USER PROFILE
+    // ============================================
+
+    function isValidUserProfile(data) {
+      return data.keys().hasAll(['uid', 'email', 'displayName', 'loyaltyPoints', 'createdAt'])
+        && data.keys().size() == 5
+        && data.uid is string
+        && data.uid == request.auth.uid
+        && data.email is string
+        && data.email.size() <= 128
+        && data.displayName is string
+        && data.displayName.size() <= 128
+        && data.loyaltyPoints is number
+        && data.loyaltyPoints >= 0
+        && data.createdAt is timestamp;
+    }
+
+    // ============================================
+    // RULE DEFINITIONS FOR PRODUCTS
+    // ============================================
+
+    function isValidProduct(data) {
+      return data.keys().hasAll(['id', 'name', 'price', 'category', 'categoryLabel', 'icon', 'description', 'fullDescription', 'rating', 'reviewsCount', 'benefits', 'instructions', 'size', 'inStock', 'isFeatured', 'stockCount'])
+        && (data.keys().size() == 16 || (data.keys().size() == 17 && 'image' in data))
+        && data.id is number
+        && data.name is string
+        && data.name.size() > 0 && data.name.size() <= 128
+        && data.price is number
+        && data.price >= 0
+        && data.category is string
+        && data.category in ['exterior', 'interior', 'ceramic', 'accessories']
+        && data.categoryLabel is string
+        && data.categoryLabel.size() <= 64
+        && data.icon is string
+        && data.icon.size() <= 16
+        && data.description is string
+        && data.description.size() <= 300
+        && data.fullDescription is string
+        && data.fullDescription.size() <= 2000
+        && data.rating is number
+        && data.reviewsCount is number
+        && data.benefits is list
+        && data.benefits.size() <= 10
+        && data.instructions is string
+        && data.instructions.size() <= 1000
+        && data.size is string
+        && data.size.size() <= 64
+        && (data.inStock == true || data.inStock == false)
+        && (data.isFeatured == true || data.isFeatured == false)
+        && data.stockCount is number;
+    }
+
+    // ============================================
+    // RULE DEFINITIONS FOR PURCHASES
+    // ============================================
+
+    function isValidPurchase(data, uid) {
+      return data.keys().hasAll(['orderId', 'userId', 'items', 'totalPrice', 'status', 'createdAt'])
+        && (data.keys().size() == 6 
+            || (data.keys().size() == 7 && 'returnReason' in data)
+            || (data.keys().size() == 8 && 'returnReason' in data && 'returnDetails' in data)
+           )
+        && data.orderId is string
+        && data.orderId.size() <= 128
+        && data.userId is string
+        && data.userId == uid
+        && data.items is list
+        && data.items.size() <= 50
+        && data.totalPrice is number
+        && data.totalPrice >= 0
+        && data.status is string
+        && data.status in ['pending', 'processing', 'completed', 'cancelled', 'return_requested', 'returned']
+        && (!('returnReason' in data) || (data.returnReason is string && data.returnReason.size() <= 200))
+        && (!('returnDetails' in data) || (data.returnDetails is string && data.returnDetails.size() <= 1000))
+        && data.createdAt is timestamp;
+    }
+
+    // Master Gate matching under users/{userId}
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false; // Blanket lists protect PII
+      
+      allow create: if isOwner(userId)
+        && isValidId(userId)
+        && isValidUserProfile(incoming())
+        && incoming().createdAt == request.time;
+        
+      allow update: if isOwner(userId)
+        && isValidId(userId)
+        && isValidUserProfile(incoming())
+        // Immutable assertions
+        && incoming().uid == existing().uid
+        && incoming().createdAt == existing().createdAt
+        && incoming().email == existing().email;
+        
+      allow delete: if false; // User records cannot be deleted by client
+
+      // Nested Purchases collection
+      match /purchases/{purchaseId} {
+        allow get, list: if isOwner(userId) || isAdmin();
+
+        allow create: if isOwner(userId)
+          && isValidId(purchaseId)
+          && purchaseId == incoming().orderId
+          && isValidPurchase(incoming(), userId)
+          && incoming().status == 'pending'
+          && incoming().createdAt == request.time;
+
+        allow update: if (isAdmin()
+          && isValidPurchase(incoming(), userId)
+          && (
+            incoming().diff(existing()).affectedKeys().hasOnly(['status'])
+            || (
+              incoming().status == 'return_requested'
+              && (
+                incoming().diff(existing()).affectedKeys().hasOnly(['status', 'returnReason'])
+                || incoming().diff(existing()).affectedKeys().hasOnly(['status', 'returnReason', 'returnDetails'])
+              )
+            )
+          ))
+          || (isOwner(userId)
+              && isValidPurchase(incoming(), userId)
+              && (
+                existing().status == 'completed'
+                && incoming().status == 'return_requested'
+                && (
+                  incoming().diff(existing()).affectedKeys().hasOnly(['status'])
+                  || incoming().diff(existing()).affectedKeys().hasOnly(['status', 'returnReason'])
+                  || incoming().diff(existing()).affectedKeys().hasOnly(['status', 'returnReason', 'returnDetails'])
+                )
+              )
+             );
+
+        allow delete: if false; // Purchases are permanent and locked once drafted
+      }
+    }
+
+    // Global orders collection matching
+    match /orders/{orderId} {
+      // The customer who placed the order can view/list it, or an admin
+      allow get, list: if isSignedIn() && (isAdmin() || ('userId' in resource.data && resource.data.userId == request.auth.uid));
+
+      // Anyone (even a guest!) can create an order.
+      allow create: if isValidId(orderId)
+        && orderId == incoming().orderId
+        && isValidPurchase(incoming(), incoming().userId)
+        && incoming().status == 'pending'
+        && incoming().createdAt == request.time
+        && (!isSignedIn() ? incoming().userId == 'guest_detailing_client' : incoming().userId == request.auth.uid);
+
+      allow update: if (isAdmin()
+        && isValidPurchase(incoming(), incoming().userId)
+        && (
+          incoming().diff(existing()).affectedKeys().hasOnly(['status'])
+          || (
+            incoming().status == 'return_requested'
+            && (
+              incoming().diff(existing()).affectedKeys().hasOnly(['status', 'returnReason'])
+              || incoming().diff(existing()).affectedKeys().hasOnly(['status', 'returnReason', 'returnDetails'])
+            )
+          )
+        ))
+        || (isSignedIn() && request.auth.uid == existing().userId
+            && isValidPurchase(incoming(), incoming().userId)
+            && (
+              existing().status == 'completed'
+              && incoming().status == 'return_requested'
+              && (
+                incoming().diff(existing()).affectedKeys().hasOnly(['status'])
+                || incoming().diff(existing()).affectedKeys().hasOnly(['status', 'returnReason'])
+                || incoming().diff(existing()).affectedKeys().hasOnly(['status', 'returnReason', 'returnDetails'])
+              )
+            )
+           );
+
+      allow delete: if false; // Centralized orders are permanent
+    }
+
+    // Relational Admins collection matching
+    match /admins/{adminId} {
+      allow get: if isSignedIn() && request.auth.uid == adminId;
+      allow list: if isAdmin();
+      allow create: if isSignedIn() && request.auth.uid == adminId && 'email' in request.auth.token && (request.auth.token.email == 'riyaadryklief92@gmail.com' || request.auth.token.email == 'RiyaadRyklief92@gmail.com');
+    }
+
+    // Products collection matching
+    match /products/{productId} {
+      allow read, get, list: if true; // Everyone can browse product catalog
+
+      allow create: if isAdmin()
+        && isValidId(productId)
+        && isValidProduct(incoming());
+
+      allow update: if (isAdmin() && isValidProduct(incoming()))
+        || (
+          // Shopper decrementing stockCount on purchase
+          incoming().diff(existing()).affectedKeys().hasOnly(['stockCount', 'inStock'])
+          && incoming().stockCount is number
+          && incoming().stockCount >= 0
+        );
+
+      allow delete: if isAdmin();
+    }
+  }
+}

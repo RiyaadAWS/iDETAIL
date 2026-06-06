@@ -1,0 +1,6 @@
+{
+  "name": "iDETAIL",
+  "description": "Premium Automotive Detailing Products and E-commerce Website",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

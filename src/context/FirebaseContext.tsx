@@ -276,23 +276,26 @@ export function FirebaseProvider({ children }: { children: React.ReactNode }) {
       setCurrentUser(user);
       if (user) {
         const localSaved = localStorage.getItem("idetail-loyalty-points");
-        const initialPoints = localSaved ? parseInt(localSaved, 10) : 1240;
+        const initialPoints = localSaved ? parseInt(localSaved, 10) : 0;
 
         let hasAdminDocument = false;
-        if (user.email?.toLowerCase() === "riyaadryklief92@gmail.com") {
-          try {
-            const adminDocRef = doc(db, "admins", user.uid);
-            const adminSnap = await getDoc(adminDocRef);
-            if (!adminSnap.exists()) {
-              await setDoc(adminDocRef, {
-                uid: user.uid,
-                email: user.email,
-                assignedAt: new Date().toISOString()
-              });
-            }
+        try {
+          const adminDocRef = doc(db, "admins", user.uid);
+          const adminSnap = await getDoc(adminDocRef);
+          if (adminSnap.exists()) {
             hasAdminDocument = true;
-          } catch (admErr) {
-            console.warn("Could not bootstrap admin doc in Firebase:", admErr);
+          } else if (user.email?.trim().toLowerCase() === "riyaadryklief92@gmail.com") {
+            await setDoc(adminDocRef, {
+              uid: user.uid,
+              email: user.email,
+              assignedAt: new Date().toISOString()
+            });
+            hasAdminDocument = true;
+          }
+        } catch (admErr) {
+          console.warn("Could not retrieve admin doc:", admErr);
+          if (user.email?.trim().toLowerCase() === "riyaadryklief92@gmail.com") {
+            hasAdminDocument = true;
           }
         }
 
@@ -310,7 +313,7 @@ export function FirebaseProvider({ children }: { children: React.ReactNode }) {
               displayName: data.displayName || user.displayName || "iDetail Professional",
               loyaltyPoints: Number(data.loyaltyPoints || initialPoints),
               createdAt: data.createdAt,
-              isAdmin: hasAdminDocument || user.email?.toLowerCase() === "riyaadryklief92@gmail.com"
+              isAdmin: hasAdminDocument || user.email?.trim().toLowerCase() === "riyaadryklief92@gmail.com"
             });
           } else {
             const newProfile: UserProfile = {
@@ -319,7 +322,7 @@ export function FirebaseProvider({ children }: { children: React.ReactNode }) {
               displayName: user.displayName || "iDetail Professional",
               loyaltyPoints: initialPoints,
               createdAt: new Date().toISOString(),
-              isAdmin: hasAdminDocument || user.email?.toLowerCase() === "riyaadryklief92@gmail.com"
+              isAdmin: hasAdminDocument || user.email?.trim().toLowerCase() === "riyaadryklief92@gmail.com"
             };
 
             try {
@@ -351,7 +354,7 @@ export function FirebaseProvider({ children }: { children: React.ReactNode }) {
             displayName: user.displayName || "iDetail Professional",
             loyaltyPoints: initialPoints,
             createdAt: new Date().toISOString(),
-            isAdmin: hasAdminDocument || user.email?.toLowerCase() === "riyaadryklief92@gmail.com"
+            isAdmin: hasAdminDocument || user.email?.trim().toLowerCase() === "riyaadryklief92@gmail.com"
           };
           setUserProfile(fallbackProfile);
         }
@@ -688,7 +691,7 @@ export function FirebaseProvider({ children }: { children: React.ReactNode }) {
         uid: userCred.user.uid,
         email: email,
         displayName: name,
-        loyaltyPoints: 1240, // Base default loyalty points
+        loyaltyPoints: 0, // Base default loyalty points
         createdAt: new Date().toISOString()
       };
       
@@ -714,7 +717,7 @@ export function FirebaseProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const isAdmin = userProfile?.isAdmin === true || currentUser?.email?.toLowerCase() === "riyaadryklief92@gmail.com";
+  const isAdmin = userProfile?.isAdmin === true || currentUser?.email?.trim().toLowerCase() === "riyaadryklief92@gmail.com";
 
   return (
     <FirebaseContext.Provider

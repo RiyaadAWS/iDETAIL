@@ -37,6 +37,7 @@ export default function Navbar({
     { id: "services", label: "Services" },
     { id: "categories", label: "Categories" },
     { id: "about", label: "About" },
+    { id: "contact", label: "Contact" },
     ...(currentUser ? [{ id: "orders", label: "My Orders" }] : []),
     ...(isAdmin ? [{ id: "admin", label: "Admin" }] : []),
   ];

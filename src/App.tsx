@@ -19,6 +19,7 @@ import StandaloneProductView from "./components/StandaloneProductView";
 import OrdersHistoryView from "./components/OrdersHistoryView";
 import AuthModal from "./components/AuthModal";
 import AdminPortalView from "./components/AdminPortalView";
+import ContactView from "./components/ContactView";
 import { useFirebase } from "./context/FirebaseContext";
 
 export default function App() {
@@ -72,9 +73,9 @@ export default function App() {
   const [guestLoyaltyPoints, setGuestLoyaltyPoints] = useState(() => {
     try {
       const saved = localStorage.getItem("idetail-loyalty-points");
-      return saved ? parseInt(saved, 10) : 1240;
+      return saved ? parseInt(saved, 10) : 0;
     } catch {
-      return 1240;
+      return 0;
     }
   });
 
@@ -272,6 +273,7 @@ export default function App() {
                     { id: "services", label: "Mobile Services" },
                     { id: "categories", label: "Categories Grid" },
                     { id: "about", label: "Detailing Academy" },
+                    { id: "contact", label: "Contact Us" },
                     ...(currentUser ? [{ id: "orders", label: "My Orders" }] : []),
                     ...(isAdmin ? [{ id: "admin", label: "Admin Portal" }] : []),
                   ].map((item) => {
@@ -374,6 +376,8 @@ export default function App() {
                 )}
 
                 {activeTab === "about" && <AboutView />}
+
+                {activeTab === "contact" && <ContactView />}
 
                 {activeTab === "orders" && (
                   <OrdersHistoryView

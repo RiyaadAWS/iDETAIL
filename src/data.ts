@@ -16,7 +16,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_liquid_wax_bottle_1780686811371.png",
     description: "Premium synthetic wax blend delivering deep wet-look gloss and ultimate water-beading performance.",
     fullDescription: "HydroGloss is engineered with fused carnauba wax and advanced liquid polymer sealants. It fills minor swirling while forming a robust, clear shell over your topcoat. This defensive layer stands up to harsh UV radiation, acid rain, and road dirt for up to 6 months.",
-    rating: 4.8,
+    rating: 0,
     reviewsCount: 142,
     benefits: [
       "Deep, reflective carnauba-like gloss and mirror finish",
@@ -39,7 +39,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_ceramic_coating_1780686827012.png",
     description: "Professional military-grade SiO2 coating package supplying up to 2 years of glass-hard protection.",
     fullDescription: "Nano Shield 9H+ represents the absolute apex of paint molecular security. It creates a semi-permanent ceramic bond with your automotive clearcoat, creating an ultra-slick barrier that shrugs off chemical etching, salt-spray oxidation, and fine swirl abrasions. Includes professional suede applicators and premium microfiber kit.",
-    rating: 4.9,
+    rating: 0,
     reviewsCount: 94,
     benefits: [
       "True 9H+ Mohs hardness for extreme scratch resistance",
@@ -62,7 +62,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_interior_spray_1780686839935.png",
     description: "Non-greasy interior dressing that lifts dust and restores a factory-fresh satin sheen to panels.",
     fullDescription: "Give dry, faded vinyl, leatherette, and plastics their factory look back. Interior Revive uses zero greasy silicone, instead hydrating plastic substrates with botanical and technical skin moisturizers. Leftover polymers create a dry-touch microfilm containing broad-spectrum SPF absorbers to stop cracking.",
-    rating: 4.7,
+    rating: 0,
     reviewsCount: 220,
     benefits: [
       "Completely dry-to-the-touch satin formula; never slimy",
@@ -85,7 +85,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_towels_1780687102000_1780687411249.png",
     description: "Dense 450GSM scratch-free microfiber drying and buffing towels constructed without hard hems.",
     fullDescription: "Avoid microscopic swirl lines during your detail work. These core buffers utilize an ultra-premium Korean split microfiber weave in an edgeless, ultrasonic-cut format. Durable up to 100 washes while retaining fluffy thickness and immediate water hydration capacity.",
-    rating: 4.6,
+    rating: 0,
     reviewsCount: 310,
     benefits: [
       "Ultrasonic cut borders completely remove hard nylon seams",
@@ -108,7 +108,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_shampoo_bottle_1780686794337.png",
     description: "Super-concentrated car wash soap designed to produce mounds of clingy dirt-grabbing foam.",
     fullDescription: "Clean your car without compromising delicate pre-existing wax protectants or ceramic layers. Ultra-Suds is a balanced pH-neutral shampoo designed specifically for foam guns, foam cannons, and bucket washing. Safe, synthetic lubricants detach mud without micro-scratching pristine panels.",
-    rating: 4.8,
+    rating: 0,
     reviewsCount: 184,
     benefits: [
       "Hyper-concentrated formula yields extreme foam density",
@@ -131,7 +131,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_wheel_cleaning_spray_1780686853478.png",
     description: "Color-changing chemistry that safely attacks embedded iron brake dust on contact.",
     fullDescription: "Brake dust and industrial metallic fallout quickly lock onto your paint and wheels, rusting under humidity. Apex Fallout neutralizes these particles. Our advanced formula melts embedded iron, indicators turn deep bleeding-purple on contact to prove the chemical decontamination process is working.",
-    rating: 4.9,
+    rating: 0,
     reviewsCount: 112,
     benefits: [
       "Fast-acting color indicator reveals active fallout dissolution",
@@ -154,7 +154,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_leather_conditioner_1780686884214.png",
     description: "Pure beeswax and aloe-infused high conditioning cream to preserve genuine luxury leather.",
     fullDescription: "Keep your luxury leather soft and supple. Leather Nourish targets pores, supplying natural moisturizers that stop drying, heat cracks, and scuffing. Leaves a dry-touch modern satin coat that highlights natural grain and adds a wonderful scent.",
-    rating: 4.7,
+    rating: 0,
     reviewsCount: 88,
     benefits: [
       "Beeswax barrier halts color rub-off and oil stains",
@@ -177,7 +177,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_glass_spray_1780686901922.png",
     description: "Slick glass sealant that beads rain in extreme storms, dramatically improving driving visibility.",
     fullDescription: "Do not let poor window visibility blind you during violent downpours. CrystalClear leaves an immediate friction-reducing fluoropolymer shield on windshields, sunroofs, and side glass. Water instantly rounds into beads and flies off at speeds over 35mph.",
-    rating: 4.8,
+    rating: 0,
     reviewsCount: 130,
     benefits: [
       "Water droplets slide off instantly, removing rain blur",
@@ -200,7 +200,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_wheel_cleaning_spray_1780686853478.png",
     description: "Thick clinging wash gel designed to strip heavy grease, stubborn mud, and tire browning.",
     fullDescription: "Tire sidewalls brown and decay due to antiozonants blooming. Catalyst Gel strips away old tire shine, road oils, and mud, preparing tyre rubbers for clean, uniform dressing absorption. The heavy clinging formulation ensures maximum surface contact time to loosen grease.",
-    rating: 4.5,
+    rating: 0,
     reviewsCount: 67,
     benefits: [
       "Strips brown oxidation blooming off tire rubbers instantly",
@@ -223,7 +223,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_glass_spray_1780686901922.png",
     description: "Instant spray-and-wipe SiO2 shine amplifier to boost ceramics and repel environmental dirt.",
     fullDescription: "Whether your vehicle is coated in high-tier Nano Shield or has raw factory finish, Supreme Slick instantly delivers an insane slickness, glossy depth, and hydrophobic water-slide protection. Perfect as a quick final detailer to wipe away dust and light spots.",
-    rating: 4.8,
+    rating: 0,
     reviewsCount: 165,
     benefits: [
       "Maintains existing ceramic or paint sealant longevity",
@@ -246,7 +246,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_grit_guard_1780687539513.png",
     description: "Rigid heavy-duty bucket grit filter to screen harmful dirt from scratching premium car clearcoats.",
     fullDescription: "Nearly all swirl-mark spiderwebs come from microscopic rocks trapped on wash mitts. The Tornado Grit Guard settles at the bottom of standard 5-gallon buckets. Radial grid vents absorb dirt and trap paint particles isolated below the baffle plate.",
-    rating: 4.9,
+    rating: 0,
     reviewsCount: 205,
     benefits: [
       "Stops grit particles from re-attaching onto wash mitts",
@@ -269,7 +269,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_clay_bar_1780686871465.png",
     description: "Premium smooth automotive clay bar kit with high-slip lubricant for paint decontamination.",
     fullDescription: "Feel the clearcoat of your car. Is it rough or bumpy? Air particulates, rail dust, and industrial sap are fused into the paint. This complete kit decontaminates pores, leaving your paint glassy smooth and ready for premium waxes or nano coatings.",
-    rating: 4.8,
+    rating: 0,
     reviewsCount: 78,
     benefits: [
       "Removes rough, embedded surface grimes that wash soaps can't touch",
@@ -292,7 +292,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_shampoo_bottle_1780686794337.png",
     description: "Rich and luxurious formula designed to both clean and condition paint in one easy step.",
     fullDescription: "iDETAIL Gold Premium Shampoo is a premium, pH-balanced formula containing advanced sudsing conditioners that lift road dirt and grime without stripping valuable wax protection. Rich conditioners leave a radiant, deep-gloss finish on all paint types.",
-    rating: 4.9,
+    rating: 0,
     reviewsCount: 425,
     benefits: [
       "Cleans and conditions paint in one simple wash step",
@@ -315,7 +315,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_liquid_wax_bottle_1780686811371.png",
     description: "Advanced dynamic pure synthetic hydrophobic polymer wax delivering deep wet-look reflection.",
     fullDescription: "iDETAIL Ultimate Liquid Wax features advanced pure synthetic polymer chemistry that crosses and bonds together to create a durable protective barrier. It elevates paint gloss, depth of color, and establishes unbelievable water-beading action easily.",
-    rating: 4.8,
+    rating: 0,
     reviewsCount: 195,
     benefits: [
       "Long-lasting synthetic polymer barrier protection",
@@ -338,7 +338,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_glass_spray_1780686901922.png",
     description: "Slick paint detailer spray with Hydrophobic Polymer Technology for high water surface-tension.",
     fullDescription: "iDETAIL Gloss Shield Quik Detailer represents the bridge between washing and waxing. Ideal for removing dust and fingerprints in minutes, it uses unique Hydrophobic Polymer Technology to create high surface tension so water beads up and rolls off instantly.",
-    rating: 4.7,
+    rating: 0,
     reviewsCount: 280,
     benefits: [
       "Safely removes dust, fingerprints, and lightweight soilings",
@@ -361,7 +361,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_glass_spray_1780686901922.png",
     description: "Sophisticated hybrid SiO2 formulation that seals paint by simply spraying on and rinsing off.",
     fullDescription: "Get ceramic protection without complicated buffers. iDETAIL Hybrid Ceramic Wax uses advanced hybrid ceramic SiO2 technology that bonds to exterior clearcoat during rinse down. Just spray on wet paint, rinse off with water, and dry. Incredible water-shedding.",
-    rating: 4.8,
+    rating: 0,
     reviewsCount: 340,
     benefits: [
       "SiO2-infused ceramic protection with zero tiresome buffing",
@@ -384,7 +384,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_clay_bar_1780686871465.png",
     description: "Micro-abrasive scratch remover that safely clears oxidation, swirl patterns, and water spots.",
     fullDescription: "iDETAIL Heavy Swirl Cutter Compound uses exclusive micro-abrasive compounding technology that cuts fast to restore neglected or damaged paints. It removes oxidation, deep swirls, bird drop stains, and water etching without scouring or scratching clearcoat.",
-    rating: 4.7,
+    rating: 0,
     reviewsCount: 215,
     benefits: [
       "Safely removes scratches and heavy swirl spiderwebs",
@@ -407,7 +407,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_interior_spray_1780686839935.png",
     description: "Deep cleaner and UV protector for all interior surfaces, leaving a non-greasy satin finish.",
     fullDescription: "Clean and protect your custom dashboard, console, and door panels. iDETAIL Ultimate Interior Detailer combines deep cleaning power with high UV blockers. It leaves a long-lasting, deep-colored satin finish that isn't greasy or slick.",
-    rating: 4.8,
+    rating: 0,
     reviewsCount: 190,
     benefits: [
       "Cleans and shields vinyl, leatherette, wood, and LCD panels",
@@ -430,7 +430,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_leather_conditioner_1780686884214.png",
     description: "Premium leather cleanser, conditioner, and protective barrier infused with aloe.",
     fullDescription: "Treat premium leather seats with iDETAIL Rich Leather 3-in-1 Cream. It safely lifts grease, body oils, and soils, while active aloe nutrients restore natural suppleness. Added UV guards prevent dry fade and cracking.",
-    rating: 4.6,
+    rating: 0,
     reviewsCount: 155,
     benefits: [
       "Cleanses, conditions, and shields leather in one quick treatment",
@@ -453,7 +453,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_interior_spray_1780686839935.png",
     description: "Fast touch-up cleaner for a factory-fresh, natural matte finish on all cabin surfaces.",
     fullDescription: "Ideal for daily upkeep, iDETAIL Quik Interior Matte Cleaner safely lifts dust, minor spills, makeup oils, and fingerprints. It preserves the original matte look of plastic, steering wheels, and screens without adding any artificial shine or sticky residue.",
-    rating: 4.8,
+    rating: 0,
     reviewsCount: 310,
     benefits: [
       "Safely cleans dashboards, sat-nav screens, trim, and leather",
@@ -476,7 +476,7 @@ export const PRODUCTS: Product[] = [
     image: "/src/assets/images/idetail_carpet_cleaner_1780686914910.png",
     description: "Active stain-lifting foam spray that penetrates fabrics to lift oils, mud, and bad odors.",
     fullDescription: "iDETAIL Heavy Duty Fabric Cleanser utilizes active foaming action to lift grease, coffee, mud, and ground-in dirt. Deep-penetrating agents break bonds, while built-in odor eliminator compounds neutralize deep-seated smells permanently.",
-    rating: 4.7,
+    rating: 0,
     reviewsCount: 125,
     benefits: [
       "Penetrates deep into fibers to break down ground-in soils",
@@ -498,7 +498,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Professional Detailing Shop Owner",
     vehicle: "Porsche 911 GT3 RS",
     text: "I have applied under three dozen brands of ceramic coatings, and the iDETAIL Nano Shield is absolutely outstanding. The flash rate is predictable, leveling is flawless, and the deep wet-look reflection holds up month after month even with daily driving.",
-    rating: 5,
+    rating: 0,
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120&h=120"
   },
   {
@@ -507,7 +507,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Concours D'Elegance Competitor",
     vehicle: "1967 Jaguar E-Type",
     text: "To preserve single-stage vintage automotive lacquer coatings, you need chemists who respect car materials. The Hybrid Wax leaves a beautiful, warm, deep gloss that elevates our paint. The edgeless towels are incredibly premium, soft, and lint-free.",
-    rating: 5,
+    rating: 0,
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120&h=120"
   },
   {
@@ -516,7 +516,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Car Enthusiast & Daily Commuter",
     vehicle: "Tesla Model S Plaid",
     text: "Interior Revive has completely changed how my cabin feels. Dust doesn't accumulate on my dashboard, and the non-greasy satin sheen looks identical to the factory leather finish. Plus, the high-end scent makes it smell like a brand new showroom delivery.",
-    rating: 5,
+    rating: 0,
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120&h=120"
   }
 ];

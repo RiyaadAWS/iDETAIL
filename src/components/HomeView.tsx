@@ -8,7 +8,7 @@ import { Sparkles, ArrowRight, Shield, Award, Droplet, Star, CheckCircle, HelpCi
 import { motion, AnimatePresence } from "motion/react";
 import { Product } from "../types";
 import { useFirebase } from "../context/FirebaseContext";
-import { TESTIMONIALS, FAQS } from "../data";
+import { FAQS } from "../data";
 import heroBg from "../assets/images/detailing_hero_new_1780495259509.png";
 
 interface HomeViewProps {
@@ -342,56 +342,6 @@ export default function HomeView({ onNavigate, onSelectCategory, onAddToCart }: 
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* 5. TESTIMONIAL CARDBOARDS */}
-      <section className="bg-gradient-to-b from-transparent to-card-bg/20 py-8 border-t border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-3 mb-16">
-            <span className="text-[10px] font-extrabold tracking-widest text-electric-blue uppercase">
-              CLIENT TESTIMONIALS
-            </span>
-            <h2 className="font-display font-bold text-3xl text-white">
-              Verified Detailing Results
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((t) => (
-              <div
-                key={t.id}
-                className="bg-card-bg/50 border border-white/5 rounded-2xl p-6 backdrop-blur-xs relative space-y-5"
-              >
-                <div className="flex items-center gap-1 text-yellow-500">
-                  {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
-                  ))}
-                </div>
-
-                <p className="text-sm text-gray-300 italic leading-relaxed">
-                  "{t.text}"
-                </p>
-
-                <div className="flex items-center gap-3.5 pt-4 border-t border-white/5">
-                  <img
-                    src={t.avatar}
-                    alt={t.name}
-                    className="w-10 h-10 rounded-full object-cover border border-white/10"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div>
-                    <h4 className="font-display font-bold text-sm text-white">
-                      {t.name}
-                    </h4>
-                    <p className="text-[10px] text-gray-500 font-mono">
-                      {t.role} • <span className="text-electric-blue">{t.vehicle}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

@@ -22,7 +22,7 @@ service cloud.firestore {
     }
 
     function isValidId(id) {
-      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_-]+$');
     }
 
     function incoming() {
@@ -94,6 +94,26 @@ service cloud.firestore {
         && (data.inStock == true || data.inStock == false)
         && (data.isFeatured == true || data.isFeatured == false)
         && data.stockCount is number;
+    }
+
+    // ============================================
+    // RULE DEFINITIONS FOR CONTACT MESSAGES
+    // ============================================
+
+    function isValidContactMessage(data) {
+      return data.keys().hasAll(['id', 'name', 'email', 'subject', 'message', 'createdAt'])
+        && data.keys().size() >= 6 && data.keys().size() <= 8
+        && data.id is string
+        && data.id.size() <= 128
+        && data.name is string
+        && data.name.size() > 0 && data.name.size() <= 128
+        && data.email is string
+        && data.email.size() > 0 && data.email.size() <= 128
+        && data.subject is string
+        && data.subject.size() > 0 && data.subject.size() <= 200
+        && data.message is string
+        && data.message.size() > 0 && data.message.size() <= 2000
+        && data.createdAt is timestamp;
     }
 
     // ============================================
@@ -246,6 +266,21 @@ service cloud.firestore {
         );
 
       allow delete: if isAdmin();
+    }
+
+    // ============================================
+    // RULE DEFINITIONS FOR CONTACTS COLLECTION
+    // ============================================
+    match /contacts/{messageId} {
+      // Create is public/anonymous so anyone can submit a contact form
+      allow create: if isValidId(messageId)
+        && messageId == incoming().id
+        && isValidContactMessage(incoming())
+        && (incoming().createdAt == request.time || incoming().createdAt is timestamp);
+
+      // Only admins can read or delete contact messages
+      allow read, get, list: if isAdmin();
+      allow update, delete: if false; 
     }
   }
 }

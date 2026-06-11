@@ -165,6 +165,38 @@
         }
       },
       "required": ["id", "name", "price", "category", "categoryLabel", "icon", "description", "fullDescription", "rating", "reviewsCount", "benefits", "instructions", "size", "inStock", "isFeatured", "stockCount"]
+    },
+    "ContactMessage": {
+      "title": "ContactMessage",
+      "description": "A contact message submitted by a site visitor.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique message ID."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the sender."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the sender."
+        },
+        "subject": {
+          "type": "string",
+          "description": "Subject of the inquiry."
+        },
+        "message": {
+          "type": "string",
+          "description": "Core body text / request from the user."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The timestamp of submission."
+        }
+      },
+      "required": ["id", "name", "email", "subject", "message", "createdAt"]
     }
   },
   "firestore": {
@@ -187,6 +219,10 @@
     "products/{productId}": {
       "schema": "Product",
       "description": "Product inventory database detailing chemicals, pricing, and stock on hand."
+    },
+    "contacts/{messageId}": {
+      "schema": "ContactMessage",
+      "description": "Collection of incoming contact forms submitted by site users."
     }
   }
 }

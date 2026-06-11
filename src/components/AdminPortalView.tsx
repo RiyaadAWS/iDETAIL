@@ -26,11 +26,13 @@ import {
   Compass,
   ArrowLeft,
   Plus,
-  Minus
+  Minus,
+  Cpu
 } from "lucide-react";
 import { useFirebase } from "../context/FirebaseContext";
 import { motion, AnimatePresence } from "motion/react";
 import { Order } from "../types";
+import DiagnosticsTestSuite from "./DiagnosticsTestSuite";
 
 export default function AdminPortalView({ 
   onExploreProducts,
@@ -51,7 +53,7 @@ export default function AdminPortalView({
     updateProductInFirebase
   } = useFirebase();
 
-  const [activeAdminTab, setActiveAdminTab] = useState<"orders" | "inventory">("orders");
+  const [activeAdminTab, setActiveAdminTab] = useState<"orders" | "inventory" | "diagnostics">("orders");
   const [invSearchQuery, setInvSearchQuery] = useState("");
   const [invFilter, setInvFilter] = useState<"all" | "low" | "out">("all");
 
@@ -496,6 +498,17 @@ export default function AdminPortalView({
           <Sliders className="w-4 h-4" />
           Stock Inventory ({products.length})
         </button>
+        <button
+          onClick={() => setActiveAdminTab("diagnostics")}
+          className={`px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 ${
+            activeAdminTab === "diagnostics"
+              ? "bg-[#00d4ff]/10 text-electric-blue font-extrabold border border-electric-blue/20"
+              : "text-gray-400 hover:text-white hover:bg-white/5 border border-transparent"
+          }`}
+        >
+          <Cpu className="w-4 h-4" />
+          System Integrity Test
+        </button>
       </div>
 
       {activeAdminTab === "orders" ? (
@@ -689,7 +702,7 @@ export default function AdminPortalView({
             </div>
           )}
         </>
-      ) : (
+      ) : activeAdminTab === "inventory" ? (
         /* PRODUCT INVENTORY VIEWER */
         <div className="space-y-6 animate-fadeIn">
           {/* INVENTORY METRICS CARDS */}
@@ -883,6 +896,8 @@ export default function AdminPortalView({
             </div>
           )}
         </div>
+      ) : (
+        <DiagnosticsTestSuite />
       )}
 
       {/* MODALS OVERLAY FOR ADD & EDIT FORMULATION */}

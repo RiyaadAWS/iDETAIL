@@ -45,8 +45,18 @@ body {
 
 /* Light theme overrides for pre-existing tight layouts */
 :root.light {
+  /* Comprehensive color adjustments to darken text */
   .text-white {
     color: #111827 !important;
+  }
+  .text-gray-100 {
+    color: #111827 !important;
+  }
+  .text-gray-200 {
+    color: #1f2937 !important;
+  }
+  .text-gray-300 {
+    color: #374151 !important;
   }
   .text-gray-400 {
     color: #4b5563 !important;
@@ -54,18 +64,46 @@ body {
   .text-gray-500 {
     color: #6b7280 !important;
   }
-  .text-gray-300 {
+  
+  /* Slate & zinc texts */
+  .text-slate-100, .text-slate-200, .text-slate-300, .text-slate-400 {
     color: #374151 !important;
   }
-  .text-gray-200 {
+  .text-zinc-100, .text-zinc-200, .text-zinc-300, .text-zinc-400 {
     color: #1f2937 !important;
   }
+  
+  /* Translucent white texts on dark backgrounds are converted into dark slate texts */
+  .text-white\/90, .text-white\/80, .text-white\/70, .text-white\/60 {
+    color: #111827 !important;
+  }
+  .text-white\/50, .text-white\/40, .text-white\/30 {
+    color: #4b5563 !important;
+  }
+
+  /* Comprehensive border adjustments on all opacity levels of white borders */
   .border-white\/5 {
     border-color: rgba(0, 0, 0, 0.08) !important;
   }
   .border-white\/10 {
     border-color: rgba(0, 0, 0, 0.14) !important;
   }
+  .border-white\/15 {
+    border-color: rgba(0, 0, 0, 0.18) !important;
+  }
+  .border-white\/20 {
+    border-color: rgba(0, 0, 0, 0.22) !important;
+  }
+  .border-white\/30 {
+    border-color: rgba(0, 0, 0, 0.28) !important;
+  }
+
+  /* Support generic matching of white borders */
+  [class*="border-white/"] {
+    border-color: rgba(0, 0, 0, 0.12) !important;
+  }
+
+  /* Convert translucent backgrounds from white to dark overlays */
   .bg-dark-bg\/95 {
     background-color: rgba(249, 250, 251, 0.95) !important;
   }
@@ -75,17 +113,68 @@ body {
   .bg-dark-bg\/60 {
     background-color: rgba(255, 255, 255, 0.75) !important;
   }
+  .bg-white\/2 {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+  }
   .bg-white\/5 {
     background-color: rgba(0, 0, 0, 0.04) !important;
   }
   .bg-white\/10 {
     background-color: rgba(0, 0, 0, 0.08) !important;
   }
+  .bg-white\/15 {
+    background-color: rgba(0, 0, 0, 0.06) !important;
+  }
+  .bg-white\/20 {
+    background-color: rgba(0, 0, 0, 0.08) !important;
+  }
+  .bg-white\/30 {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+  }
+  .bg-white\/\[0\.01\] {
+    background-color: rgba(0, 0, 0, 0.01) !important;
+  }
+  .bg-white\/\[0\.02\] {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+  }
+  .bg-white\/\[0\.05\] {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+  }
+  
+  /* Adjust custom black opacities */
+  .bg-black\/10 {
+    background-color: rgba(0, 0, 0, 0.03) !important;
+  }
+  .bg-black\/20 {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+  }
+  .bg-black\/30 {
+    background-color: rgba(0, 0, 0, 0.08) !important;
+  }
+  .bg-black\/40 {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+  }
+  .bg-black\/50 {
+    background-color: rgba(0, 0, 0, 0.16) !important;
+  }
+
+  /* Support generic matching for white translucent backgrounds rules */
+  [class*="bg-white/"]:not(.bg-electric-blue *):not(.bg-midnight-blue *):not(.bg-emerald-500 *):not(.bg-rose-500 *) {
+    background-color: rgba(0, 0, 0, 0.03) !important;
+  }
+
+  /* Hover states matching translucencies */
   .hover\:bg-white\/5:hover {
     background-color: rgba(0, 0, 0, 0.04) !important;
   }
   .hover\:bg-white\/10:hover {
     background-color: rgba(0, 0, 0, 0.08) !important;
+  }
+  .hover\:bg-white\/15:hover {
+    background-color: rgba(0, 0, 0, 0.10) !important;
+  }
+  .hover\:bg-white\/20:hover {
+    background-color: rgba(0, 0, 0, 0.12) !important;
   }
   
   /* Ensure text on solid blue/info elements remains white for high contrast */
@@ -99,15 +188,24 @@ body {
     }
   }
 
+  /* Override text gradients ending in to-white so they do not disappear on the light background */
+  .bg-gradient-to-r.to-white {
+    background-image: linear-gradient(to right, var(--electric-blue), #111827) !important;
+  }
+
   /* Adjust overlays and drop menus */
-  .bg-\[\#0f1116\], .bg-\[\#0f1116\] {
+  .bg-\[\#0f1116\] {
     background-color: #ffffff !important;
   }
-  .bg-\[\#12161f\], .bg-\[\#12161f\] {
+  .bg-\[\#12161f\] {
     background-color: #ffffff !important;
   }
-  .bg-\[\#1a1e26\], .bg-\[\#1a1e26\] {
+  .bg-\[\#1a1e26\] {
     background-color: #f3f4f6 !important;
+  }
+  .bg-\[\#12141c\] {
+    background-color: var(--bg-card) !important;
+    color: var(--text-main) !important;
   }
 
   /* Additional popup modal backgrounds and dividers (Invoice & Service Pamphlets) */
@@ -167,6 +265,17 @@ body {
     &::placeholder {
       color: #9ca3af !important;
     }
+  }
+
+  /* Map custom scrollbars to clean bright colors in light mode */
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9 !important;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1 !important;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8 !important;
   }
 }
 
